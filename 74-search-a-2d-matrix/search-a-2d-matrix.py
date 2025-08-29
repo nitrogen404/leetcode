@@ -3,20 +3,16 @@ class Solution:
         if not matrix or not matrix[0]:
             return False
 
-        for row in matrix:
-            if row[0] <= target <= row[-1]:
-                return self.search(row, target)
-        return False
-
-    def search(self, row, target):
-        low, high = 0, len(row) - 1
+        low, high = 0, len(matrix) * len(matrix[0]) - 1
         while low <= high:
             mid = (low + high) // 2
-            if row[mid] == target:
+            row = mid // len(matrix[0])
+            col = mid % len(matrix[0])
+            value = matrix[row][col]
+            if value == target:
                 return True
-            elif row[mid] > target:
-                high = mid - 1
-            else:
+            if value < target:
                 low = mid + 1
+            else:
+                high = mid - 1
         return False
-            
