@@ -6,18 +6,16 @@
 import heapq
 class Solution:
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
-        minHeap = []
-        heapq.heapify(minHeap)
+        heap = []
         for i, node in enumerate(lists):
             if node:
-                heapq.heappush(minHeap, (node.val, i, node))
-        
-        dummy = ListNode(0) 
-        tail = dummy
-        while minHeap:
-            val, i, node = heapq.heappop(minHeap)
+                heapq.heappush(heap, (node.val, i, node))
+        dummyNode = ListNode(-1)
+        tail = dummyNode
+        while heap:
+            value, i, node = heapq.heappop(heap)
             tail.next = node
-            tail = tail.next
+            tail = node
             if node.next:
-                heapq.heappush(minHeap, (node.next.val, i, node.next))
-        return dummy.next
+                heapq.heappush(heap, (node.next.val, i, node.next))
+        return dummyNode.next
