@@ -9,7 +9,7 @@ class Solution:
         def validate(node, low, high):
             if not node:
                 return True
-            if not (node.val < high and node.val > low):
-                return False 
+            if not (node.val > low and node.val < high):
+                return False
             return (validate(node.left, low, node.val) and validate(node.right, node.val, high))
-        return validate(root, float('-inf'), float('inf'))
+        return validate(root, float('-inf'), float('inf')) 
