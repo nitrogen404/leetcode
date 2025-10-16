@@ -2,10 +2,10 @@ import heapq
 class Solution:
     def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
         graph = {}
-        for src, dst, time in times:
+        for src, dst, weights in times:
             if src not in graph:
                 graph[src] = []
-            graph[src].append((dst, time))
+            graph[src].append((dst, weights))
         
         heap = [(0, k)]
         visited = set()
@@ -20,7 +20,3 @@ class Solution:
                 if neighbor not in visited:
                     heapq.heappush(heap, (time + w, neighbor))
         return minTime if len(visited) == n else -1
-            
-            
-
-
