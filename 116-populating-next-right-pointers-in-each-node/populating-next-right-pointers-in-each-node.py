@@ -11,8 +11,7 @@ from collections import deque
 class Solution:
     def connect(self, root: 'Optional[Node]') -> 'Optional[Node]':
         if not root:
-            return None
-        
+            return root
         queue = deque([root])
         while queue:
             levelSize = len(queue)
@@ -26,8 +25,6 @@ class Solution:
                     queue.append(currentNode.left)
                 if currentNode.right:
                     queue.append(currentNode.right)
+            
         return root
 
-                    
-                
-        
