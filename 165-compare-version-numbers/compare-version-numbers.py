@@ -1,17 +1,21 @@
 class Solution:
     def compareVersion(self, version1: str, version2: str) -> int:
-        version_1 = list(map(int, version1.split('.')))
-        version_2 = list(map(int, version2.split('.')))
-        
-        maxLen = max(len(version_1), len(version_2))
-        while len(version_1) < maxLen:
-            version_1.append(0)
-        while len(version_2) < maxLen:
-            version_2.append(0)
-        
-        for i in range(maxLen):
-            if version_1[i] < version_2[i]:
+        i, j = 0, 0
+        while i < len(version1) or j < len(version2):
+            num1 = 0
+            while i < len(version1) and version1[i] != '.':
+                num1 = num1 * 10 + int(version1[i])
+                i += 1
+
+            num2 = 0
+            while j < len(version2) and version2[j] != '.':
+                num2 = num2 * 10 + int(version2[j])
+                j += 1
+            
+            if num1 < num2:
                 return -1
-            elif version_1[i] > version_2[i]:
+            elif num1 > num2:
                 return 1
+            i += 1
+            j += 1
         return 0
