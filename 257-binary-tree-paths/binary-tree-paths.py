@@ -9,16 +9,17 @@ class Solution:
         result = []
         if not root:
             return []
-        
-        def dfs(node, path):
+
+        def findPath(node, path):
             nonlocal result
             if not node:
                 return 
             if not node.left and not node.right:
                 result.append(path)
             if node.left:
-                dfs(node.left, path + "->" + str(node.left.val))
+                findPath(node.left, path + '->' + str(node.left.val))
             if node.right:
-                dfs(node.right, path + "->" + str(node.right.val))
-        dfs(root, str(root.val))
+                findPath(node.right, path + '->' + str(node.right.val))
+        
+        findPath(root, str(root.val))
         return result
