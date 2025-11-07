@@ -2,8 +2,7 @@ class Solution:
     def letterCombinations(self, digits: str) -> List[str]:
         if not digits:
             return []
-
-        self.result = []
+        result = []
         map = {
             '2': "abc",
             '3': "def",
@@ -16,11 +15,11 @@ class Solution:
         }
 
         def backtrack(s, index):
+            nonlocal result
             if len(s) == len(digits):
-                self.result.append(s)
+                result.append(s)
                 return 
-            for char in map[digits[index]]:
-                backtrack(s + char, index + 1)
-        
+            for i in map[digits[index]]:
+                backtrack(s + i, index + 1)
         backtrack("", 0)
-        return self.result
+        return result
