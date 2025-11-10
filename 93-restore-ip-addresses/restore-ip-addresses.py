@@ -17,9 +17,5 @@ class Solution:
                 segment = s[start: end]
                 if isValid(segment):
                     backtrack(end, path + [segment])
-        
         backtrack(0, [])
         return result
-
-
-            
