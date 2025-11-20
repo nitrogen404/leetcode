@@ -2,8 +2,8 @@ from collections import Counter
 class Solution:
     def findAnagrams(self, s: str, p: str) -> List[int]:
         result = []
-        freqP = Counter(p)
         freqS = Counter()
+        freqP = Counter(p)
         k = len(p)
         for i in range(len(s)):
             freqS[s[i]] += 1
@@ -14,5 +14,4 @@ class Solution:
                     freqS[s[i - k]] -= 1
             if freqS == freqP:
                 result.append(i - k + 1)
-
-        return result
+        return result    
