@@ -6,8 +6,7 @@ class Solution:
         for r in range(len(arr)):
             windowSum += arr[r]
             if (r - l + 1) == k:
-                mean = windowSum // (r - l + 1)
-                if mean >= threshold:
+                if windowSum >= threshold * k:
                     result += 1
                 windowSum -= arr[l]
                 l += 1
