@@ -1,16 +1,16 @@
 class MyHashMap:
 
     def __init__(self):
-        self.hashMap = [-1] * 1000001
+        self.hashmap = [-1] * 1000001
 
     def put(self, key: int, value: int) -> None:
-        self.hashMap[key] = value
+        self.hashmap[key] = value
 
     def get(self, key: int) -> int:
-        return self.hashMap[key]
+        return self.hashmap[key]
 
     def remove(self, key: int) -> None:
-        self.hashMap[key] = -1
+        self.hashmap[key] = -1
 
 
 # Your MyHashMap object will be instantiated and called as such:
