@@ -1,7 +1,7 @@
 class MyHashSet:
 
     def __init__(self):
-        self.array = [False] * 1000001       
+        self.array = [False] * 1000001
 
     def add(self, key: int) -> None:
         self.array[key] = True
@@ -11,7 +11,6 @@ class MyHashSet:
 
     def contains(self, key: int) -> bool:
         return self.array[key]
-        
 
 
 # Your MyHashSet object will be instantiated and called as such:
