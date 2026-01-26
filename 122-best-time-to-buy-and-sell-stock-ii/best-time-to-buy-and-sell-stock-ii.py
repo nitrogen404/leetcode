@@ -3,10 +3,10 @@ class Solution:
         cp, sp, maxProfit = 0, 0, 0
         while sp < len(prices):
             if prices[sp] > prices[cp]:
-                maxProfit += prices[sp] - prices[cp]
+                profit = prices[sp] - prices[cp]
+                maxProfit += profit
                 cp = sp
             else:
                 cp = sp
             sp += 1
         return maxProfit
-        
