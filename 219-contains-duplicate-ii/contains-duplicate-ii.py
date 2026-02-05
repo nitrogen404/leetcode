@@ -7,5 +7,5 @@ class Solution:
             window.add(nums[r])
             if len(window) > k:
                 window.remove(nums[r - k])
-            
         return False
+
