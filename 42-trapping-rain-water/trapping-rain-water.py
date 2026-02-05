@@ -1,5 +1,6 @@
 class Solution:
     def trap(self, height: List[int]) -> int:
+        
         l, r = 0, len(height) - 1
         total, lMax, rMax = 0, 0, 0
         while l < r:
@@ -16,4 +17,3 @@ class Solution:
                     rMax = height[r]
                 r -= 1
         return total
-                
