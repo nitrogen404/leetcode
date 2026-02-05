@@ -1,12 +1,12 @@
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        memory = {}
-        maxLen, l = 0, 0
+        hashmap = {}
+        l, maxLen = 0, 0
         for r in range(len(s)):
-            if s[r] in memory and memory[s[r]] >= l:
-                l = memory[s[r]] + 1
-
-            memory[s[r]] = r
-            maxLen = max(maxLen, r - l + 1)
+            if s[r] in hashmap:
+                l = max(hashmap[s[r]] + 1, l)
+            hashmap[s[r]] = r
+            currentLen = r - l + 1
+            maxLen = max(maxLen, currentLen)
         return maxLen
-        
+            
