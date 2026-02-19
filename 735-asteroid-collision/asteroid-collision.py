@@ -14,3 +14,4 @@ class Solution:
             else:
                 stack.append(a)
         return stack
+            
