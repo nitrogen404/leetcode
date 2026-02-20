@@ -1,33 +1,30 @@
 class Solution:
     def largestRectangleArea(self, heights: List[int]) -> int:
         maxArea = 0
-        nse = self.nse(heights)
-        pse = self.pse(heights)
+        prevSmaller = self.pse(heights)
+        nextSmaller = self.nse(heights)
         for i in range(len(heights)):
-           
-            area = (nse[i] - pse[i] - 1) * heights[i]
-            maxArea = max(area, maxArea)
+            area = (nextSmaller[i] - prevSmaller[i] - 1) * heights[i]
+            maxArea = max(maxArea, area)
         return maxArea
-    
 
-    def nse(self, heights):
-        nextSmaller = [len(heights)] * len(heights)
-        stk = []
-        for i in range(len(heights)):
-            while stk and heights[stk[-1]] >= heights[i]:
-                index = stk.pop()
-                nextSmaller[index] = i
-            stk.append(i)
-        return nextSmaller
-    
     def pse(self, heights):
-        prevSmaller = [-1] * len(heights)
-        stk = []
+        stack = []
+        result = [-1] * len(heights)
         for i in range(len(heights)):
-            while stk and heights[stk[-1]] >= heights[i]:
-                stk.pop()
-            if stk:
-                prevSmaller[i] = stk[-1]
-            stk.append(i)
-        return prevSmaller
-
+            while stack and heights[stack[-1]] >= heights[i]:
+                stack.pop()
+            if stack:
+                result[i] = stack[-1]
+            stack.append(i)
+        return result
+    
+    def nse(self, heights):
+        stack = []
+        result = [len(heights)] * len(heights)
+        for i in range(len(heights)):
+            while stack and heights[stack[-1]] >= heights[i]:
+                index = stack.pop()
+                result[index] = i
+            stack.append(i)
+        return result
