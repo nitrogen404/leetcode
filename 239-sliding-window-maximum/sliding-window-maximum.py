@@ -12,5 +12,4 @@ class Solution:
             if i + 1 >= k:
                 result.append(nums[queue[0]])
         return result
-
-            
+                       
