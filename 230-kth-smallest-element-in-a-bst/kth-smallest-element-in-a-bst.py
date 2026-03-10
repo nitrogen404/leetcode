@@ -8,17 +8,16 @@ class Solution:
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
         count = k
         result = None
-        def search(node):
+        def dfs(node):
             nonlocal result, count
             if not node or result is not None:
                 return 
-            search(node.left)
+            dfs(node.left)
             count -= 1
             if count == 0:
                 result = node.val
                 return 
-            search(node.right)
-        
-        search(root)
+
+            dfs(node.right)
+        dfs(root)
         return result
-            
