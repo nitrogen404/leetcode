@@ -11,20 +11,20 @@ from collections import deque
 class Solution:
     def connect(self, root: 'Optional[Node]') -> 'Optional[Node]':
         if not root:
-            return root
+            return None
         queue = deque([root])
         while queue:
             levelSize = len(queue)
             prev = None
-            for i in range(levelSize):
-                currentNode = queue.popleft()
+            for _ in range(levelSize):
+                node = queue.popleft()
                 if prev:
-                    prev.next = currentNode
-                prev = currentNode
-                if currentNode.left:
-                    queue.append(currentNode.left)
-                if currentNode.right:
-                    queue.append(currentNode.right)
-            
+                    prev.next = node
+                prev = node
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
         return root
 
+        
