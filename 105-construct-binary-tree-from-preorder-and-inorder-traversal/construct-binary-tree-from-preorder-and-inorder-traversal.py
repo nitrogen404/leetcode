@@ -12,7 +12,7 @@ class Solution:
         preOrderIndex = 0
 
         def build(l, r):
-            nonlocal hashmap, preOrderIndex
+            nonlocal preOrderIndex
             
             if l > r:
                 return None 
