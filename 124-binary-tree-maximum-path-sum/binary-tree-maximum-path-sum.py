@@ -14,9 +14,9 @@ class Solution:
             
             left = max(dfs(node.left), 0)
             right = max(dfs(node.right), 0)
-            currentSum = node.val + left + right
-            maxSum = max(currentSum, maxSum)
+
+            currentSum = left + right + node.val
+            maxSum = max(maxSum, currentSum)
             return node.val + max(left, right)
-        
         dfs(root)
         return maxSum
