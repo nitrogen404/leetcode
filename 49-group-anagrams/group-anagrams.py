@@ -7,4 +7,3 @@ class Solution:
                 hashmap[key] = []
             hashmap[key].append(word)
         return list(hashmap.values())
-        
