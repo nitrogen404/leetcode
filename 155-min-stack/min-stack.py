@@ -7,18 +7,21 @@ class MinStack:
         if not self.stack:
             self.stack.append((val, val))
         else:
-            self.stack.append((val, min(val, self.stack[-1][1])))
-
+            current_min = min(val, self.stack[-1][1])
+            self.stack.append((val, current_min))
 
     def pop(self) -> None:
         if self.stack:
             self.stack.pop()
 
-
     def top(self) -> int:
-        return self.stack[-1][0]
+        if not self.stack:
+            return None
+        return self.stack[-1][0]        
 
     def getMin(self) -> int:
+        if not self.stack:
+            return None
         return self.stack[-1][1]
 
 
