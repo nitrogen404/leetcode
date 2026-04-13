@@ -1,16 +1,38 @@
 class MyHashMap:
 
     def __init__(self):
-        self.store = [-1] * 10000001
+        self.size = 1000
+        self.map = [[] for _ in range(self.size)]
 
     def put(self, key: int, value: int) -> None:
-        self.store[key] = value
+        index = key % self.size
+        bucket = self.map[index]
+        for i in range(len(bucket)):
+            k, v = bucket[i]
+            if k == key:
+                bucket[i] = (key, value)
+                return 
+        bucket.append((key, value))
+
 
     def get(self, key: int) -> int:
-        return self.store[key]
+        index = key % self.size
+        bucket = self.map[index]
+        for i in range(len(bucket)):
+            k, v = bucket[i]
+            if key == k:
+                return v
+        return -1
 
     def remove(self, key: int) -> None:
-        self.store[key] = -1
+        index = key % self.size
+        bucket = self.map[index]
+        for i in range(len(bucket)):
+            k, v = bucket[i]
+            if k == key:
+                del bucket[i]
+                return 
+
 
 
 # Your MyHashMap object will be instantiated and called as such:
