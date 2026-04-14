@@ -13,16 +13,17 @@ class MyHashMap:
                 bucket[i] = (key, value)
                 return 
         bucket.append((key, value))
-
+                
 
     def get(self, key: int) -> int:
         index = key % self.size
         bucket = self.map[index]
         for i in range(len(bucket)):
             k, v = bucket[i]
-            if key == k:
+            if k == key:
                 return v
         return -1
+
 
     def remove(self, key: int) -> None:
         index = key % self.size
@@ -31,8 +32,7 @@ class MyHashMap:
             k, v = bucket[i]
             if k == key:
                 del bucket[i]
-                return 
-
+                return  
 
 
 # Your MyHashMap object will be instantiated and called as such:
