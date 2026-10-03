@@ -1,18 +1,20 @@
 class Solution:
-    def trap(self, height: List[int]) -> int:
+    def trap(self, height: list[int]) -> int:
         l, r = 0, len(height) - 1
-        total, lMax, rMax = 0, 0, 0
+        total, l_max, r_max = 0, 0, 0
+
         while l < r:
             if height[l] <= height[r]:
-                if height[l] < lMax:
-                    total += lMax - height[l]
+                if height[l] > l_max:
+                    l_max = height[l]
                 else:
-                    lMax = height[l]
+                    total += l_max - height[l]
                 l += 1
             else:
-                if height[r] < rMax:
-                    total += rMax - height[r]
+                if height[r] > r_max:
+                    r_max = height[r]
                 else:
-                    rMax = height[r]
+                    total += r_max - height[r]
                 r -= 1
-        return total 
+
+        return total
