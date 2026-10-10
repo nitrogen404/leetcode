@@ -4,7 +4,7 @@ class Solution:
         
         def dfs(city):
             visited[city] = 1
-            for neighbor in range(len(isConnected)):
+            for neighbor in range(len(isConnected[0])):
                 if isConnected[city][neighbor] == 1 and not visited[neighbor]:
                     dfs(neighbor)
         
