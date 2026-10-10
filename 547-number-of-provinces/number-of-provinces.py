@@ -1,16 +1,16 @@
 class Solution:
     def findCircleNum(self, isConnected: List[List[int]]) -> int:
         visited = [0] * len(isConnected)
-        count = 0
-        def dfs(node):
-            nonlocal visited
-            visited[node] = 1
+        
+        def dfs(city):
+            visited[city] = 1
             for neighbor in range(len(isConnected)):
-                if not visited[neighbor] and isConnected[neighbor][node] == 1:
+                if isConnected[city][neighbor] == 1 and not visited[neighbor]:
                     dfs(neighbor)
         
-        for i in range(len(isConnected)):
-            if visited[i] == 0:
-                dfs(i)
-                count += 1
-        return count
+        provinces = 0
+        for city in range(len(isConnected)):
+            if not visited[city]:
+                provinces += 1
+                dfs(city)
+        return provinces
