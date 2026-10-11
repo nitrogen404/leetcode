@@ -1,37 +1,42 @@
 class Solution:
-    def solve(self, board: List[List[str]]) -> None:
+    def solve(self, board: list[list[str]]) -> None:
         """
         Do not return anything, modify board in-place instead.
         """
-        if not board or not board[0]:
-            return 
-        rows, cols = len(board), len(board[0])
+        q = deque()
+        directions = [(1, 0), (-1, 0), (0, -1), (0, 1)]
+        # Top and bottom rows
+        for i in range(len(board[0])):
+            if board[0][i] == 'O':
+                q.append((0, i))
+                board[0][i] = 'S'
+
+            if board[len(board) - 1][i] == 'O':
+                q.append((len(board) - 1, i))
+                board[len(board) - 1][i] = 'S'
+
+
+        # Left and right columns
+        for i in range(len(board)):
+            if board[i][0] == 'O':
+                q.append((i, 0))
+                board[i][0] = 'S'
+
+            if board[i][len(board[0]) - 1] == 'O':
+                q.append((i, len(board[0]) - 1))
+                board[i][len(board[0]) - 1] = 'S'
+            
+        while q:
+            r, c = q.popleft()
+            for dr, dc in directions:
+                nr, nc = dr + r, dc + c
+                if 0 <= nr < len(board) and 0 <= nc < len(board[0]) and board[nr][nc] == 'O':
+                    board[nr][nc] = 'S'
+                    q.append((nr, nc))
         
-        def dfs(r, c):
-            if r < 0 or r >= rows or c < 0 or c >= cols or board[r][c] != 'O':
-                return 
-            board[r][c] = 'S'
-            dfs(r - 1, c)
-            dfs(r + 1, c)
-            dfs(r, c - 1)
-            dfs(r, c + 1)
-        
-        for r in range(rows):
-            if board[r][0] == 'O':
-                dfs(r, 0)
-            if board[r][cols - 1] == 'O':
-                dfs(r, cols - 1)
-        
-        for c in range(cols):
-            if board[0][c] == 'O':
-                dfs(0, c)
-            if board[rows - 1][c] == 'O':
-                dfs(rows - 1, c)
-        
-        for r in range(rows):
-            for c in range(cols):
-                if board[r][c] == 'O':
-                    board[r][c] = 'X'
-                elif board[r][c] == 'S':
-                    board[r][c] = 'O'
-                    
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                if board[i][j] == 'O':
+                    board[i][j] = 'X'
+                elif board[i][j] == 'S':
+                    board[i][j] = 'O'
