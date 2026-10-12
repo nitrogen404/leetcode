@@ -1,23 +1,26 @@
 from collections import deque
 class Solution:
-    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        adj = {i: [] for i in range(numCourses)}
-        indegree = [0] * numCourses
-        for src, dst in prerequisites:
-            adj[src].append(dst)
-            indegree[dst] += 1
+    def canFinish(self, numCourses: int, prerequisites: list[list[int]]) -> bool:
+        graph = {}
+        for course in range(numCourses):
+            graph[course] = []
         
-        queue = deque()
-        for i in range(numCourses):
-            if indegree[i] == 0:
-                queue.append(i)
-        visited = 0
-        while queue:
-            node = queue.popleft()
-            visited += 1
-            for neighbor in adj[node]:
+        indegree = [0] * numCourses
+        for course, preq in prerequisites:
+            graph[preq].append(course)
+            indegree[course] += 1
+        
+        q = deque()
+        for course in range(numCourses):
+            if indegree[course] == 0:
+                q.append(course)
+
+        completed = 0
+        while q:
+            course = q.popleft()
+            completed += 1
+            for neighbor in graph[course]:
                 indegree[neighbor] -= 1
                 if indegree[neighbor] == 0:
-                    queue.append(neighbor)
-        return visited == numCourses
-
+                    q.append(neighbor)
+        return completed == numCourses
