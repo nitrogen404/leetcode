@@ -1,26 +1,45 @@
 from collections import deque
 class Solution:
-    def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
+    def pacificAtlantic(self, heights: list[list[int]]) -> list[list[int]]:
         if not heights or not heights[0]:
             return []
+
         rows, cols = len(heights), len(heights[0])
-
-        def bfs(starts):
-            visited = set(starts)
-            queue = deque(starts)
-            while queue:
-                r, c = queue.popleft()
-                for dr, dc in [(-1,0),(1,0),(0,-1),(0,1)]:
-                    nr, nc = r + dr, c + dc
-                    if (0 <= nr < rows and 0 <= nc < cols  and (nr, nc) not in visited and heights[nr][nc] >= heights[r][c]):
+        
+        def bfs(start):
+            visited = set(start)
+            q = deque(start)
+            while q:
+                r, c = q.popleft()
+                for dr, dc in [(-1, 0), (1, 0), (0, 1), (0, -1)]:
+                    nr, nc = dr + r, dc + c
+                    if 0 <= nr < rows and 0 <= nc < cols and heights[nr][nc] >= heights[r][c] and (nr, nc) not in visited:
                         visited.add((nr, nc))
-                        queue.append((nr, nc))
+                        q.append((nr, nc))
             return visited
+        
+        pacific_start = []
+        for c in range(cols):
+            pacific_start.append((0, c))
 
-        pacificStarts = [(0, c) for c in range(cols)] + [(r, 0) for r in range(rows)]
-        pacificReach = bfs(pacificStarts)
+        for r in range(rows):
+            pacific_start.append((r, 0))
 
-        atlanticStarts = [(rows - 1, c) for c in range(cols)] + [(r, cols - 1) for r in range(rows)]
-        atlanticReach = bfs(atlanticStarts)
-        result = list(pacificReach & atlanticReach)
+        
+        atlantic_start = []
+        for c in range(cols):
+            atlantic_start.append((rows - 1, c))
+
+        for r in range(rows):
+            atlantic_start.append((r, cols - 1))
+
+
+        pacific_points = bfs(pacific_start)
+        atlantic_points = bfs(atlantic_start)
+        common = pacific_points & atlantic_points
+        
+        result = []
+        for r, c in common:
+            result.append([r, c])
+        
         return result
