@@ -4,34 +4,27 @@
 #         self.val = val
 #         self.next = next
 class Solution:
-    def reorderList(self, head: Optional[ListNode]) -> None:
+    def reorderList(self, head: ListNode | None) -> None:
         """
         Do not return anything, modify head in-place instead.
         """
         if not head or not head.next:
             return 
-
-        slow, fast = head, head
-        while fast and fast.next:
-            slow = slow.next
-            fast = fast.next.next
         
-        prev = None
-        current = slow.next
-        slow.next = None
+        nodes = []
+        current = head
         while current:
-            temp = current.next
-            current.next = prev
-            prev = current
-            current = temp
-
-        first, second = head, prev
-        while second:
-            temp1 = first.next
-            temp2 = second.next
-            first.next = second
-            second.next = temp1
-            first = temp1
-            second = temp2
+            nodes.append(current)
+            current = current.next
         
+        l, r = 0, len(nodes) - 1
+        while l < r:
+            nodes[l].next = nodes[r]
+            l += 1
+            if l == r:
+                break
+            nodes[r].next = nodes[l]
+            r -= 1
+        nodes[l].next = None
+
         
