@@ -11,15 +11,20 @@ class Solution:
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
         if not head:
             return None
-        memory = {}
+            
+        current = head
+        copies = {}
+        
+        while current:
+            copies[current] = Node(current.val)
+            current = current.next
+        
         current = head
         while current:
-            memory[current] = Node(current.val)
+            copy_node = copies[current]
+            if current.next:
+                copy_node.next = copies[current.next]
+            if current.random:
+                copy_node.random = copies[current.random]
             current = current.next
-        current = head
-        while current:
-            copy = memory[current]
-            copy.next = memory.get(current.next)
-            copy.random = memory.get(current.random)
-            current = current.next
-        return memory[head]
+        return copies[head]
