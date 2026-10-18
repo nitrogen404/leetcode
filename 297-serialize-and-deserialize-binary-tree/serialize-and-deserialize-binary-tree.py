@@ -4,56 +4,48 @@
 #         self.val = x
 #         self.left = None
 #         self.right = None
-from collections import deque
-class Codec:
 
+class Codec:
+    values = []
     def serialize(self, root):
         """Encodes a tree to a single string.
         
         :type root: TreeNode
         :rtype: str
         """
-        if not root:
-            return ""
-        queue = deque([root])
         result = []
-        while queue:
-            currentNode = queue.popleft()
-            if currentNode:
-                result.append(str(currentNode.val))
-                queue.append(currentNode.left)
-                queue.append(currentNode.right)
-            else:
-                result.append("null")
+        def dfs(node):
+            if not node:
+                result.append("N")
+                return 
+            
+            result.append(str(node.val))
+            dfs(node.left)
+            dfs(node.right)
+        dfs(root)
         return ",".join(result)
-    
+
+        
+
     def deserialize(self, data):
         """Decodes your encoded data to tree.
         
         :type data: str
         :rtype: TreeNode
         """
-        if not data:
-            return None
+        vals = data.split(",")
+        self.i = 0
+        def dfs():
+            if vals[self.i] == "N":
+                self.i += 1
+                return None
             
-        nodes = data.split(",")
-        root = TreeNode(int(nodes[0]))
-        queue = deque([root])
-        index = 1
-        while queue:
-            node = queue.popleft()
-            if index < len(nodes) and nodes[index] != "null":
-                node.left = TreeNode(int(nodes[index]))
-                queue.append(node.left)
-            index += 1
-            if index < len(nodes) and nodes[index] != "null":
-                node.right = TreeNode(int(nodes[index]))
-                queue.append(node.right)
-            index += 1
-        return root
-
-
-
+            node = TreeNode(int(vals[self.i]))
+            self.i += 1
+            node.left = dfs()
+            node.right = dfs()
+            return node
+        return dfs()
         
 
 # Your Codec object will be instantiated and called as such:
