@@ -5,25 +5,26 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
-        # preorder = root, left, right
-        # inorder = left, root, right
-        hashmap = {value: i for i, value in enumerate(inorder)}
-        preOrderIndex = 0
+    def buildTree(self, preorder: list[int], inorder: list[int]) -> TreeNode | None:
+        inorder_index = {}
+        for i in range(len(inorder)):
+            inorder_index[inorder[i]] = i
+        
+        preorder_index = 0
+        
+        def dfs(left, right):
+            nonlocal preorder_index
 
-        def build(l, r):
-            nonlocal preOrderIndex
+            if left > right:
+                return None
             
-            if l > r:
-                return None 
-            
-            rootVal = preorder[preOrderIndex]
-            root = TreeNode(rootVal)
-            preOrderIndex += 1
-            inOrderIndex = hashmap[rootVal]
-            
-            root.left = build(l, inOrderIndex - 1)
-            root.right = build(inOrderIndex + 1, r)
+            rootvalue = preorder[preorder_index]
+            preorder_index += 1
+
+            root = TreeNode(rootvalue)
+            mid = inorder_index[rootvalue]
+            root.left = dfs(left, mid - 1)
+            root.right = dfs(mid + 1, right)
             return root
-        return build(0, len(inorder) - 1)
-         
+        return dfs(0, len(inorder) - 1)
+        
