@@ -14,11 +14,10 @@ class Solution:
             
             left = max(0, dfs(node.left))
             right = max(0, dfs(node.right))
-            
             current_path = node.val + left + right
             max_sum = max(max_sum, current_path)
-            
             return node.val + max(left, right)
-        
         dfs(root)
         return max_sum
+
+            
