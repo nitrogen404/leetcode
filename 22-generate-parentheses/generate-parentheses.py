@@ -1,13 +1,13 @@
 class Solution:
     def generateParenthesis(self, n: int) -> list[str]:
         result = []
-        def backtrack(s, opencount, closedcount):
+        def backtrack(s, openbrackets, closebrackets):
             if len(s) == 2 * n:
                 result.append(s)
                 return 
-            if opencount < n:
-                backtrack(s + "(", opencount + 1, closedcount)
-            if closedcount < opencount:
-                backtrack(s + ")", opencount, closedcount + 1)
+            if openbrackets < n:
+                backtrack(s + '(', openbrackets + 1, closebrackets)
+            if closebrackets < openbrackets:
+                backtrack(s + ')', openbrackets, closebrackets + 1)
         backtrack("", 0, 0)
         return result
