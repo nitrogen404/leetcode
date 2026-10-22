@@ -2,22 +2,24 @@ import heapq
 class MedianFinder:
 
     def __init__(self):
-        self.max_heap = []
-        self.min_heap = []
+        # all elements in left heap <= all elements in right heap
+        self.left = [] # max_heap - by default all inserts first go into left heap
+        self.right = [] # min_heap
 
     def addNum(self, num: int) -> None:
-        heapq.heappush(self.max_heap, -num)
-        value = -heapq.heappop(self.max_heap)
-        heapq.heappush(self.min_heap, value)
-        if len(self.min_heap) > len(self.max_heap):
-            value = heapq.heappop(self.min_heap)
-            heapq.heappush(self.max_heap, -value)
+        heapq.heappush(self.left, -num)
+        value = -heapq.heappop(self.left)
+        heapq.heappush(self.right, value)
+
+        if len(self.right) > len(self.left):
+            value = heapq.heappop(self.right)
+            heapq.heappush(self.left, -value)
 
     def findMedian(self) -> float:
-        if len(self.max_heap) > len(self.min_heap):
-            return float(-self.max_heap[0])
+        if len(self.left) > len(self.right):
+            return float(-self.left[0])
+        return (-self.left[0] + self.right[0]) / 2
 
-        return (-self.max_heap[0] + self.min_heap[0]) / 2
 
 # Your MedianFinder object will be instantiated and called as such:
 # obj = MedianFinder()
