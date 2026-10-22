@@ -1,6 +1,5 @@
 import heapq
 from collections import deque
-
 class Solution:
     def leastInterval(self, tasks: list[str], n: int) -> int:
         freq = {}
@@ -14,18 +13,16 @@ class Solution:
             heapq.heappush(heap, -freq[task])
         
         q = deque()
-
-        interval = 0
+        time = 0
         while heap or q:
-            interval += 1
-            if q and q[0][1] <= interval:
-                count, next_available_time = q.popleft()
-                heapq.heappush(heap, -count)
+            time += 1
+            if q and q[0][1] <= time:
+                task_freq, next_available_time = q.popleft()
+                heapq.heappush(heap, (-task_freq))
             if heap:
-                count = -heapq.heappop(heap)
-                count -= 1
-                if count > 0:
-                    next_available_time = interval + 1 + n
-                    q.append((count, next_available_time))
-
-        return interval
+                task_freq = -heapq.heappop(heap)
+                task_freq -= 1
+                if task_freq > 0:
+                    next_available_time = n + 1 + time
+                    q.append((task_freq, next_available_time))
+        return time
