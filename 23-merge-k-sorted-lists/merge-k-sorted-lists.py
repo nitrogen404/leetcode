@@ -11,6 +11,7 @@ class Solution:
             if lists[i]:
                 heapq.heappush(heap, (lists[i].val, i, lists[i]))
         
+
         dummy = ListNode(-1)
         current = dummy
         while heap:
